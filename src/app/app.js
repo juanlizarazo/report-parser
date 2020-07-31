@@ -5,7 +5,7 @@ const path = require('path');
 const { ReportOutput } = require('./models');
 const { ReportParserHelper } = require('./helpers');
 
-class App {
+module.exports.App = class App {
   constructor() {
     this.reportOutput = new ReportOutput();
   }
@@ -37,10 +37,3 @@ class App {
     }
   }
 }
-
-const app = new App();
-
-app.processReport().then(reportOutput => {
-  console.log('\n⭐️ Output:\n');
-  console.log(JSON.stringify(reportOutput, null, 2));
-});
