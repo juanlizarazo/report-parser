@@ -2,7 +2,7 @@ const { ITEM_TYPES } = require('../constants');
 
 const CENTS_IN_A_DOLLAR = 100;
 
-class ReportParserHelper {
+module.exports.ReportParserHelper = class ReportParserHelper {
   static getType(code, subCode) {
     const parsedCode = Number.parseInt(code, 10);
     const parsedSubCode = Number.parseInt(subCode, 10);
@@ -42,6 +42,4 @@ class ReportParserHelper {
       return null;
     }
   }
-}
-
-module.exports = { ReportParserHelper };
+};
