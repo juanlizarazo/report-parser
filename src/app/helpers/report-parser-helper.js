@@ -3,9 +3,9 @@ const { ITEM_TYPES } = require('../constants');
 const CENTS_IN_A_DOLLAR = 100;
 
 module.exports.ReportParserHelper = class ReportParserHelper {
-  static getType(code, subCode) {
+  static getType(code, subCode = null) {
     const parsedCode = Number.parseInt(code, 10);
-    const parsedSubCode = Number.parseInt(subCode, 10);
+    const parsedSubCode = subCode ? Number.parseInt(subCode, 10) : null;
 
     if (
       ITEM_TYPES.mortgage.codes.includes(parsedCode) &&
