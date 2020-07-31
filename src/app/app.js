@@ -36,4 +36,4 @@ module.exports.App = class App {
       this.reportOutput.addTradeLine(parsedLine);
     }
   }
-}
+};
