@@ -1,5 +1,5 @@
 const { ITEM_TYPES } = require('../constants');
-const DEFAULT_HOUSING_EXPENSE = 1061;
+const DEFAULT_HOUSING_EXPENSE = 106100;
 
 module.exports.ReportOutput = class ReportOutput {
   constructor() {
