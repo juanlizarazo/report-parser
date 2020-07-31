@@ -13,6 +13,12 @@ class ReportParserHelper {
     ) {
       return ITEM_TYPES.mortgage.display;
     }
+
+    if (ITEM_TYPES.education.codes.includes(parsedCode)) {
+      return ITEM_TYPES.education.display;
+    }
+
+    return ITEM_TYPES.other.display;
   }
 
   static processMonetaryValue(value = "") {
