@@ -1,13 +1,12 @@
-const { ReportParserHelper } = require('./helpers');
-
 const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
+
 const { ReportOutput } = require('./models');
+const { ReportParserHelper } = require('./helpers');
 
 const reportPath = path.resolve(__dirname, './report.txt');
 const readStream = fs.createReadStream(reportPath);
-
 const reportOutput = new ReportOutput();
 
 const readInterface = readline.createInterface({
