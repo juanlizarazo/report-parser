@@ -25,6 +25,23 @@ class ReportParserHelper {
     const valueWithoutDollarSign = value.replace('$', '');
     return Number.parseFloat(valueWithoutDollarSign) * CENTS_IN_A_DOLLAR;
   }
+
+  static getTradeLine(line) {
+    try {
+      const items = line.split(' ');
+      const [reportedDate, code, subCode, monthlyPayment, currentBalance] = items;
+
+      return {
+        type: ReportParserHelper.getType(code, subCode),
+        monthly_payment: ReportParserHelper.processMonetaryValue(monthlyPayment),
+        current_balance: ReportParserHelper.processMonetaryValue(currentBalance)
+      };
+    } catch (err) {
+      console.error('Ignoring line', err);
+
+      return null;
+    }
+  }
 }
 
 module.exports = { ReportParserHelper };

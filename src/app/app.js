@@ -16,7 +16,7 @@ const readInterface = readline.createInterface({
 readInterface.on('line', function (line) {
   console.log(`Parsing  ${line}`);
 
-  const parsedLine = parseLine(line);
+  const parsedLine = ReportParserHelper.getTradeLine(line);
 
   if (parsedLine) {
     tradeLines.push(parsedLine);
@@ -31,20 +31,3 @@ readInterface.on('close', function () {
   console.log('\n⭐️ Output:\n');
   console.log(JSON.stringify(tradeLines, null, 2));
 });
-
-function parseLine(line) {
-  try {
-    const items = line.split(' ');
-    const [reportedDate, code, subCode, monthlyPayment, currentBalance] = items;
-
-    return {
-      type: ReportParserHelper.getType(code, subCode),
-      monthly_payment: ReportParserHelper.processMonetaryValue(monthlyPayment),
-      current_balance: ReportParserHelper.processMonetaryValue(currentBalance)
-    };
-  } catch (err) {
-    console.error('Ignoring line', err);
-
-    return null;
-  }
-}
