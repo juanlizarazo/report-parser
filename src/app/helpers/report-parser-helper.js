@@ -22,7 +22,7 @@ module.exports.ReportParserHelper = class ReportParserHelper {
   }
 
   static processMonetaryValue(value = '') {
-    const valueWithoutDollarSign = value.replace('$', '');
+    const valueWithoutDollarSign = value.replace('$', '').replace(',', '');
     return Number.parseFloat(valueWithoutDollarSign) * CENTS_IN_A_DOLLAR;
   }
 
@@ -30,6 +30,11 @@ module.exports.ReportParserHelper = class ReportParserHelper {
     try {
       const items = line.split(' ');
       const [reportedDate, code, subCode, monthlyPayment, currentBalance] = items;
+
+      if (items.length !== 5) {
+        console.error('Ignoring line');
+        return null;
+      }
 
       return {
         type: ReportParserHelper.getType(code, subCode),

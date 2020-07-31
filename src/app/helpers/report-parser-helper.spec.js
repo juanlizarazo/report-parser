@@ -1,9 +1,31 @@
 const { ReportParserHelper } = require('./report-parser-helper');
 
 describe('report-parser-helper.js', () => {
-  // describe('getTradeLine()', () => {
-  //   ReportParserHelper.getTradeLine();
-  // });
+  beforeEach(() => {
+    spyOn(console, 'error');
+  });
+
+  describe('getTradeLine()', () => {
+    it('builds trade line', () => {
+      const result = ReportParserHelper.getTradeLine('2015-10-10 5 1 $431.98 $51028.00');
+
+      expect(result).toEqual({
+        type: 'education',
+        monthly_payment: 43198,
+        current_balance: 5102800
+      });
+    });
+
+    it('skips bad line', () => {
+      const result = ReportParserHelper.getTradeLine('2015-10-10 5 1 $431.98$51028.00');
+      expect(result).toBe(null);
+    });
+
+    it('handles exception', () => {
+      const result = ReportParserHelper.getTradeLine(undefined);
+      expect(result).toBe(null);
+    });
+  });
 
   describe('getType()', () => {
     it('returns mortgage for code 10 and subCode 12', () => {
@@ -32,7 +54,23 @@ describe('report-parser-helper.js', () => {
     });
   });
 
-  // describe('processMonetaryValue()', () => {
-  //   ReportParserHelper.processMonetaryValue();
-  // });
+  describe('processMonetaryValue()', () => {
+    it('returns expected format', () => {
+      const result = ReportParserHelper.processMonetaryValue('51028.00');
+
+      expect(result).toBe(5102800);
+    });
+
+    it('removes supports dollar sign in input', () => {
+      const result = ReportParserHelper.processMonetaryValue('$51028.00');
+
+      expect(result).toBe(5102800);
+    });
+
+    it('supports thousand commas', () => {
+      const result = ReportParserHelper.processMonetaryValue('51,028.00');
+
+      expect(result).toBe(5102800);
+    });
+  });
 });
