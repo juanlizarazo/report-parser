@@ -1,0 +1,12 @@
+{
+  "name": "ls",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/app/app.js"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  }
+}
