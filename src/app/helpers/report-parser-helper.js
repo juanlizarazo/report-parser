@@ -1,4 +1,4 @@
-const { ITEM_TYPES } = require("../constants");
+const { ITEM_TYPES } = require('../constants');
 
 const CENTS_IN_A_DOLLAR = 100;
 
@@ -21,8 +21,8 @@ class ReportParserHelper {
     return ITEM_TYPES.other.display;
   }
 
-  static processMonetaryValue(value = "") {
-    const valueWithoutDollarSign = value.replace("$", "");
+  static processMonetaryValue(value = '') {
+    const valueWithoutDollarSign = value.replace('$', '');
     return Number.parseFloat(valueWithoutDollarSign) * CENTS_IN_A_DOLLAR;
   }
 }
