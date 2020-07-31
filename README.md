@@ -33,4 +33,4 @@ Feel free to replace `src/app/report.txt` with any other report you want to test
 
 - `yarn test` or `npm test` to run 16 specs, written about the given criteria.
 
-Build with ❤️  in Utah
+Build with ♥ in Utah
