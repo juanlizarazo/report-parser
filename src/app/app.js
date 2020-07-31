@@ -3,10 +3,55 @@ const { ReportParserHelper } = require('./helpers');
 const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
+const { ITEM_TYPES } = require('./constants');
 
-const tradeLines = [];
 const reportPath = path.resolve(__dirname, './report.txt');
 const readStream = fs.createReadStream(reportPath);
+
+const output = {
+  get fixed_expenses_before_education() {
+    return 0;
+  },
+  tradelines: []
+};
+
+const DEFAULT_HOUSING_EXPENSE = 1061;
+
+class ReportOutput {
+  constructor() {
+    this._housingExpenses = 0;
+    this._nonHousingExpenses = 0;
+    this._tradeLines = [];
+  }
+
+  get fixed_expenses_before_education() {
+    return this._nonHousingExpenses + this._housingExpenses;
+  }
+
+  addTradeLine(tradeLine) {
+    this._tradeLines.push(tradeLine);
+    this._updateFixedExpensesBeforeEducation(tradeLine);
+  }
+
+  toJSON() {
+    return {
+      fixed_expenses_before_education: this.fixed_expenses_before_education,
+      tradelines: this._tradeLines
+    };
+  }
+
+  _updateFixedExpensesBeforeEducation(tradeLine) {
+    if (tradeLine.current_balance === 0) {
+      return;
+    }
+
+    if (tradeLine.type === ITEM_TYPES.mortgage.display) {
+      this._housingExpenses += tradeLine.monthly_payment;
+    }
+  }
+}
+
+const reportOutput = new ReportOutput();
 
 const readInterface = readline.createInterface({
   input: readStream,
@@ -19,7 +64,7 @@ readInterface.on('line', function (line) {
   const parsedLine = ReportParserHelper.getTradeLine(line);
 
   if (parsedLine) {
-    tradeLines.push(parsedLine);
+    reportOutput.addTradeLine(parsedLine);
   }
 });
 
@@ -29,5 +74,5 @@ readInterface.on('error', function (error) {
 
 readInterface.on('close', function () {
   console.log('\n⭐️ Output:\n');
-  console.log(JSON.stringify(tradeLines, null, 2));
+  console.log(JSON.stringify(reportOutput, null, 2));
 });
