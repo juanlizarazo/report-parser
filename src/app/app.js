@@ -25,6 +25,10 @@ class ReportOutput {
   }
 
   get fixed_expenses_before_education() {
+    if (this._housingExpenses === 0) {
+      return this._nonHousingExpenses + DEFAULT_HOUSING_EXPENSE;
+    }
+
     return this._nonHousingExpenses + this._housingExpenses;
   }
 
@@ -47,6 +51,10 @@ class ReportOutput {
 
     if (tradeLine.type === ITEM_TYPES.mortgage.display) {
       this._housingExpenses += tradeLine.monthly_payment;
+    }
+
+    if (tradeLine.type === ITEM_TYPES.other.display) {
+      this._nonHousingExpenses += tradeLine.monthly_payment;
     }
   }
 }
