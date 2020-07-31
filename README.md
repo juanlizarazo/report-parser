@@ -1,5 +1,8 @@
 # report-parser
 
+This program takes a person's credit report, parses it, and outputs JSON describing
+both the parsed contents of the credit report and some derived facts.
+
 Built using node 10.
 
 Build with JS without external packages (except for testing).
