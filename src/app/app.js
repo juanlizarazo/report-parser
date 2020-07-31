@@ -40,7 +40,7 @@ function parseLine(line) {
     return {
       type: ReportParserHelper.getType(code, subCode),
       monthly_payment: ReportParserHelper.processMonetaryValue(monthlyPayment),
-      current_balance: currentBalance,
+      current_balance: ReportParserHelper.processMonetaryValue(currentBalance),
     };
   } catch (err) {
     console.error("Ignoring line", err);
