@@ -12,10 +12,12 @@ Feel free to replace `src/app/report.txt` with any other report you want to test
 
 # Approach
 
-- Code is self documenting, it is composed by an main.js file that runs the process report method.
-- There's a helper to help parse the report line items and format them correctly.
+- Code is self documenting, it is composed by a `main.js` file that runs the process report method.
+- There's a helper class to help parse the report line items and format them correctly.
 - The constants folder has the codes and the display names.
+- The `ReportOutput` model.
 - Some classes use private constants that are just of the concern of the class itself and I decided to encapsulate them.
+- Unit tested with Jasmine. Inputs -> Outputs to not test implementation details.
 
 # To parse report
 
