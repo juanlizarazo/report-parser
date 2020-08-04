@@ -7,7 +7,23 @@ describe('report-parser-helper.js', () => {
 
   describe('getTradeLine()', () => {
     it('builds trade line', () => {
-      const result = ReportParserHelper.getTradeLine('2015-10-10 5 1 $431.98 $51028.00');
+      const result = ReportParserHelper.getTradeLine('2019-10-10 5 1 $431.98 $51028.00');
+
+      expect(result).toEqual({
+        type: 'education',
+        monthly_payment: 43198,
+        current_balance: 5102800
+      });
+    });
+
+    it('skips trade line that is older than one year old', () => {
+      const result = ReportParserHelper.getTradeLine('2019-08-03 5 1 $431.98 $51028.00');
+
+      expect(result).toEqual(null);
+    });
+
+    it('includes trade line that is less than one year old', () => {
+      const result = ReportParserHelper.getTradeLine('2019-08-07 5 1 $431.98 $51028.00');
 
       expect(result).toEqual({
         type: 'education',

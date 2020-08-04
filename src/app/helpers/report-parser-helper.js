@@ -1,6 +1,7 @@
 const { ITEM_TYPES } = require('../constants');
 
 const CENTS_IN_A_DOLLAR = 100;
+const ONE_YEAR_IN_MS = 1564876800000;
 
 module.exports.ReportParserHelper = class ReportParserHelper {
   static getType(code, subCode = null) {
@@ -30,6 +31,13 @@ module.exports.ReportParserHelper = class ReportParserHelper {
     try {
       const items = line.split(' ');
       const [reportedDate, code, subCode, monthlyPayment, currentBalance] = items;
+
+      const reportedDateObj = new Date(reportedDate);
+      const reportedDateInMs = reportedDateObj.getTime();
+
+      if (reportedDateInMs < ONE_YEAR_IN_MS) {
+        return null;
+      }
 
       if (items.length !== 5) {
         console.error('Ignoring line');
