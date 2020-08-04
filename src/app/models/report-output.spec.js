@@ -49,6 +49,16 @@ describe('report-output', () => {
 
       expect(reportOutput.fixed_expenses_before_education).toBe(35131);
     });
+
+    it('uses double fixed spend amount for auto expenses', () => {
+      reportOutput.addTradeLine({
+        type: 'auto',
+        monthly_payment: 50000,
+        current_balance: 100
+      });
+
+      expect(reportOutput.fixed_expenses_before_education).toBe(206100);
+    });
   });
 
   describe('toJSON()', () => {

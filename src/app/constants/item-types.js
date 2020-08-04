@@ -1,19 +1,24 @@
 const ITEM_TYPES = {
   mortgage: {
-    display: "mortgage",
+    display: 'mortgage',
     codes: [10],
-    subCodes: [12, 15],
+    subCodes: [12, 15]
   },
   education: {
-    display: "education",
+    display: 'education',
     codes: [5],
-    subCodes: [],
+    subCodes: []
   },
   other: {
-    display: "other",
+    display: 'other',
     codes: [],
-    subCodes: [],
+    subCodes: []
   },
+  auto: {
+    display: 'auto',
+    codes: [9],
+    subCodes: [5]
+  }
 };
 
 module.exports = { ITEM_TYPES };

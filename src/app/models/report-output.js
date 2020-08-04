@@ -37,6 +37,10 @@ module.exports.ReportOutput = class ReportOutput {
       this._housingExpenses += tradeLine.monthly_payment;
     }
 
+    if (tradeLine.type === ITEM_TYPES.auto.display) {
+      this._nonHousingExpenses += tradeLine.monthly_payment * 2;
+    }
+
     if (tradeLine.type === ITEM_TYPES.other.display) {
       this._nonHousingExpenses += tradeLine.monthly_payment;
     }
