@@ -13,17 +13,16 @@ module.exports.App = class App {
   processReport() {
     const reportPath = path.resolve(__dirname, './report.txt');
     const readStream = fs.createReadStream(reportPath);
-
-    this.readInterface = readline.createInterface({
+    const readInterface = readline.createInterface({
       input: readStream,
       console: false
     });
 
-    this.readInterface.on('line', line => this._processLine(line));
-    this.readInterface.on('error', err => console.log(err));
+    readInterface.on('line', line => this._processLine(line));
+    readInterface.on('error', err => console.log(err));
 
     return new Promise(resolve => {
-      this.readInterface.on('close', () => resolve(this.reportOutput));
+      readInterface.on('close', () => resolve(this.reportOutput));
     });
   }
 
